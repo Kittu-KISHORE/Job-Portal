@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,7 @@ public class Recrutier {
 	private String orgWebsite;
 	private long empcount;
 	
-	@OneToMany(cascade =CascadeType.ALL)
+	@OneToMany(mappedBy = "recrutier",fetch = FetchType.EAGER)
 	private List<Job> jobs;
 
 	public int getId() {
@@ -88,15 +89,28 @@ public class Recrutier {
 
 
 
-	public Recrutier(String orgName, String orgPassword, String orgAbout, String orgWebsite, long empcount,
+
+	
+
+	public Recrutier(String orgName, String orgAbout, String orgPassword, String orgWebsite, long empcount,
 			List<Job> jobs) {
 		super();
 		this.orgName = orgName;
-		this.orgPassword = orgPassword;
 		this.orgAbout = orgAbout;
+		this.orgPassword = orgPassword;
 		this.orgWebsite = orgWebsite;
 		this.empcount = empcount;
 		this.jobs = jobs;
+	}
+
+	public Recrutier( String orgName, String orgAbout, String orgPassword, String orgWebsite, long empcount) {
+		super();
+	
+		this.orgName = orgName;
+		this.orgAbout = orgAbout;
+		this.orgPassword = orgPassword;
+		this.orgWebsite = orgWebsite;
+		this.empcount = empcount;
 	}
 
 	public Recrutier() {

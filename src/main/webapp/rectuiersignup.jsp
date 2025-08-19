@@ -20,7 +20,7 @@ body{
 }
 #parent{
 	
-	 display: flex;
+	 display: flex; 
 	  flex-direction: column;
 	 justify-content: center;
 	 align-items: center;
@@ -47,42 +47,55 @@ body{
 	 line-height: 20px;
 	 border-radius:  30px;
 	  box-shadow: 0 0 15px black ;
-	  
-	  
-	 
+ 
 }
-
 </style>
 
 </head>
 <body>
-<div id="im">
-</div>
+
 	<div id = "parent">
 		<h1>Recruiter SignUp</h1>
 		
-		<form action="" id="details">
+		<form action="signup" method ="post" id="details">
 		
-			<label for="rec_id">Recruiter ID:</label>
-			<input type= "text" id="rec_id" >
-			<br>
 			<label for="org_name">Organization Name:</label>
-			<input type= "text" id="org_name" >
+			<input type= "text" id="org_name" name="orgName">
 			<br>
 			<label for="rec_pass">Password:</label>
-			<input type= "text" id="rec_pass" >
+			<input type= "text" id="rec_pass" name="password"> 
 			<br>
 			<label for="rec_about">Organization About:</label>
-			<input type= "text" id="rec_about" >
+			<input type= "text" id="rec_about"  name="about">
 			<br>
 			<label for="org_web">Organization Web-site</label>
-			<input type= "text" id="org_web" >
+			<input type= "text" id="org_web" name="website"> 
+			<br>
+			<br>
+			<label for="org_count">Organization Employee-Count</label>
+			<input type= "number" id="org_count" name="empcount"> 
 			<br>
 			<input type="submit">
-			
-			
 		</form>
 	
 	</div>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>

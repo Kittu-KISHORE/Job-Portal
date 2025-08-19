@@ -1,6 +1,7 @@
 package jobportalDAO;
 
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class MyDAO {
 	}
 	
 	public static Recrutier recrutierLogin(String orgName, String password) {
-		Query query = em.createNamedQuery("select re from Recrutier re where re.orgName=?");
+		Query query = em.createQuery("select re from Recrutier re where re.orgName=?1");
 		query.setParameter(1, orgName);
 		Recrutier dbRecrutier =(Recrutier)query.getSingleResult();
 		if(dbRecrutier!=null && dbRecrutier.getOrgPassword().equals(password)) return dbRecrutier;
@@ -53,12 +54,43 @@ public class MyDAO {
 		et.commit();	
 	}
 	
-	public List<Job> findJobsByRecrutierId(int recrutierId){
+	public static List<Job> findJobsByRecrutierId(int recrutierId){
 		List<Job> jobs = em.find(Recrutier.class, recrutierId).getJobs();
 		return jobs;
 		
 	}
 	
+//	public static void deleteJob(int recruiterid ,int jobid) {
+//		Recrutier recruiter = em.find(Recrutier.class, recruiterid);
+//		Job job = em.find(Job.class, jobid);
+//		if(recruiter.getJobs().contains(job)) {
+//			recruiter.getJobs().remove(job);
+//			et.begin();
+//			em.remove(job);
+//			em.merge(recruiter);
+//			
+//			et.commit();
+//		}
+//		
+//	}
+	public static void deleteJob(int recruiterId, int jobId) {
+	    et.begin();
+
+	    Recrutier recruiter = em.find(Recrutier.class, recruiterId);
+	    Job job = em.find(Job.class, jobId);
+
+	    if (recruiter != null && job != null && recruiter.getJobs().contains(job)) {
+	        // Break the relationship
+	        recruiter.getJobs().remove(job);
+	        job.setRecrutier(recruiter);
+
+	        // Remove the job
+	        em.remove(job);
+	    }
+
+	    et.commit();
+	}
+
 	public static Job findJobByJobId(int jobid) {
 		return em.find(Job.class, jobid);
 	}
@@ -107,6 +139,11 @@ public class MyDAO {
 	
 	public static List<Application> viewApplicationByJobId(int jobId){
 		return em.find(Job.class, jobId).getApplication();
+	}
+	public static List<Job> getalljobs(){
+		Query query = em.createQuery("select j from Job j");
+		List<Job> jobs = query.getResultList();
+		return jobs;
 	}
 	
 	

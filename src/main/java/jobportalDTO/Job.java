@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 @Entity
 public class Job {
@@ -19,6 +20,8 @@ public class Job {
 	private String experience;
 	private String location;
 	private String skill;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Recrutier recrutier;
 	@OneToMany(cascade =CascadeType.ALL)
 	private List<Application> application;
 	public int getId() {
@@ -63,12 +66,19 @@ public class Job {
 	public void setApplication(List<Application> application) {
 		this.application = application;
 	}
+	
+	public Recrutier getRecrutier() {
+		return recrutier;
+	}
+	public void setRecrutier(Recrutier recrutier) {
+		this.recrutier = recrutier;
+	}
 	@Override
 	public String toString() {
 		return "Job [id=" + id + ", designation=" + designation + ", salary=" + salary + ", experience=" + experience
 				+ ", location=" + location + ", skill=" + skill + ", application=" + application + "]";
 	}
-	public Job(String designation, double salary, String experience, String location, String skill,
+	public Job(String designation, double salary, String experience, String location, String skill,	Recrutier recrutier,
 			List<Application> application) {
 		super();
 		
@@ -77,6 +87,7 @@ public class Job {
 		this.experience = experience;
 		this.location = location;
 		this.skill = skill;
+		this.recrutier = recrutier;
 		this.application = application;
 	}
 	public Job() {
